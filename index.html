@@ -54,6 +54,19 @@
         cursor: pointer;
       }
 
+      /* Bottom text */
+      #bottom-text {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 14px;
+        text-align: center;
+        color: #ffffff;
+        cursor: pointer;
+        z-index: 1;
+      }
+
       /* Navbar styles */
       .nav-bar {
         position: fixed;
@@ -78,7 +91,7 @@
         visibility: hidden;
         opacity: 0;
         position: absolute;
-        left: 50px; /* Adjust this to control distance from the icon */
+        left: 50px;
         background-color: #333;
         color: #fff;
         padding: 5px 8px;
@@ -99,9 +112,7 @@
         text-decoration: none;
         margin: 20px 0;
         text-align: center;
-        transition:
-          transform 0.3s,
-          color 0.3s;
+        transition: transform 0.3s, color 0.3s;
         font-size: 1.2rem;
       }
 
@@ -151,17 +162,45 @@
       <a href="games.html" class="icon">
         🎮<span class="tooltip">Games</span>
       </a>
-            <a href="settings.html" class="icon">
+      <a href="settings.html" class="icon">
         ⚙<span class="tooltip">Settings</span>
       </a>
-                  <a href="chat.html" class="icon">
+      <a href="chat.html" class="icon">
         💬<span class="tooltip">Chat</span>
       </a>
     </div>
+
+    <!-- Bottom Text -->
+    <div id="bottom-text" onclick="launchFullscreen('https://viridian.pages.dev')">
+      Open in about:blank
     </div>
 
     <script>
       // JavaScript for particles without interaction
+      function launchFullscreen(url) {
+        var myWindow = window.open(
+          "",
+          "Fullscreen",
+          "scrollbars=1,height=" +
+            screen.availHeight +
+            ",width=" +
+            screen.availWidth,
+        );
+        myWindow.document.write(
+          '<!DOCTYPE html>\n\
+          <html>\n\
+          <head>\n\
+          <title>Game</title>\n\
+          </head>\n\
+          <body style="margin:0;">\n\
+          <iframe src="' +
+            url +
+            '" style="border:none;overflow:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" height="100%" width="100%"></iframe>\n\
+          </body>\n\
+          </html>',
+        );
+      }
+
       particlesJS("particles-js", {
         particles: {
           number: { value: 100, density: { enable: true, value_area: 800 } },
@@ -175,7 +214,7 @@
         interactivity: { detect_on: "canvas", events: { onhover: { enable: false }, onclick: { enable: false } } },
         retina_detect: true,
       });
-
+      
       // JavaScript for rotating random text
       let currentIndex = 0;
       const textElements = document.querySelectorAll("#random-text span");
